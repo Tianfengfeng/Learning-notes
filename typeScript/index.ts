@@ -1,4 +1,7 @@
-class MyType2{
+
+//  typescript  基础类型学习
+
+class Mytype2{
     enum(){
         //1. 用于定义数值集合  可以定义一些带名字的常量   git更新了
         //2. 枚举类型的值是数值类型 因此又被称为数字类型枚举
@@ -66,6 +69,7 @@ class MyType2{
     }
 
     myof(){
+        // for in 遍历对象的副作用 原型链上所有属性都会被访问到   使用obj.hasOwnProperty(ker)===true   来区分  会避免原型对象扩展带来的干扰
         //for...of 可以迭代数组、类数组以及任何可以迭代的对象(maps、sets、DOM集合)
         const products :Array<string> = ['oranges', 'apples'];
         //1.  迭代数组每一项
@@ -88,15 +92,56 @@ class MyType2{
         
         // 迭代类数组
         
-        function sum() {
-            let sum = 0;
-            for (const number of arguments) {
-              sum += number;
-            }
-            return sum;
-        }
-          
+        // function sum() {
+        //     let sum = 0;
+        //     for (const number of arguments) {
+        //       sum += number;
+        //     }
+        //     return sum;
+        // }
+        // this.sum(1,2,3)  
     }
 
-   
+    //  1.数字类型  let num :number=999
+    // 2.字符串类型 let str :String='tec'
+    // 3.布尔  let flag :boolean=false
+    // 4.数组类型 let arr :number[]=[1,2,3]
+    //   数组泛型 let arr : Array<number>=[1,2,3]
+    //   元祖  用来定义已知数组元素和类型  let arr:[String,number,boolean]
+                // arr = ['Runoob', 1,true];    // 运行正常
+                // arr = [1, 'Runoob',true];    // 报错
+                // console.log(x[0]);    // 输出 Runoob
+    // void  用来标识方法返回值的类型
+            // function test():void {
+            //     console.log(2323)
+            // }   
+            
+    //null  表示对象值缺失  undefined  初始化变量为未定义的值    
+
+    //never   代表从来不会出现的值  是所有其他类型的子类（包括null undefined）  声明为never 的值只能被never类型的值赋值  通常在函数中用来抛出异常 或无法执行到终点  
+
+    // Any  适用于定义的值会动态改变/允许值在编译时移除类型检查/ 定义存储各种类型数据的数组时，
+
+
+    //null
+    // 在 JavaScript 中 null 表示 "什么都没有"。
+    // null是一个只有一个值的特殊类型。表示一个空对象引用。
+    // 用 typeof 检测 null 返回是 object。
+    // undefined
+    // 在 JavaScript 中, undefined 是一个没有设置值的变量。
+    // typeof 一个没有值的变量会返回 undefined。
+    // Null 和 Undefined 是其他任何类型（包括 void）的子类型，可以赋值给其它类型，如数字类型，此时，赋值后的类型会变成 null 或 undefined。
+    // 而在TypeScript中启用严格的空校验（--strictNullChecks）特性，就可以使得null 和 undefined 只能被赋值给 void 或本身对应的类型，
+
+    // 启用 --strictNullChecks
+        // let x: number;
+        // x = 1; // 运行正确
+        // x = undefined;    // 运行错误
+        // x = null;    // 运行错误
+
+        // let x: number | null | undefined;
+        // x = 1; // 运行正确
+        // x = undefined;    // 运行正确
+        // x = null;    // 运行正确
+
 }
