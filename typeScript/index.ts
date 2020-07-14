@@ -144,4 +144,65 @@ class myType2{
         // x = undefined;    // 运行正确
         // x = null;    // 运行正确
 
+
+
+     // 类型断言    
+       
+        //使用方式 <类型>值   或者    值 as 类型
+        // 简单说就是先做一个假设 使编译通过
+        funa(val: string | number): number {
+            if ((<string>val).length) {
+              return (<string>val).length
+            } else {
+              return val.toString().length
+            }
+          }
+          
+          // 或者
+          
+          func(val: string | number): number {
+            if ((val as string).length) {
+              return (val as string).length
+            } else {
+              return val.toString().length
+            }
+          }   
+        //  参数val 是一个联合类型   函数要返回参数的长度，而lenght是字符串的属性  数值没有此属性，需用 toStriing 转 再获取。
+        // 但在编译阶段 访问联合类型值 的属性时，这个属性必须是所有可能类型的共有属性，因此编译不通过，要使用类型断言，
+        // 类型断言不是类型转换  而是类型选择。
+
+
+        // 类型推断  
+
+               /* var num = 2;    // 类型推断为 number 声明了变量 num 并=设置初始值为 2。 注意变量声明没有指定类型。因此，程序使用类型推断来确定变量的数据类型，第一次赋值为 2，num 设置为 number 类型。
+                console.log("num 变量的值为 "+num); 
+                num = "12";    // 编译错误 当我们再次为变量设置字符串类型的值时，这时编译会错误。因为变量已经设置为了 number 类型。
+                console.log(num);*/
+                
+           // 当声明变量 没有给出类型 ts编译器利用类型推断设置类型
+        
+
+
+
+
+
+
+
+           Scope(){
+            var global_num = 12          // 全局变量    
+            class Numbers {              // 类在这
+               num_val = 13;             // 实例变量
+               static sval = 10;         // 静态变量
+               
+               storeNum():void { 
+                  var local_num = 14;    // 局部变量
+               } 
+            } 
+            console.log("全局变量为: "+global_num)  
+            console.log(Numbers.sval)   // 静态变量
+            var obj = new Numbers(); 
+            console.log("实例变量: "+obj.num_val)  
+           }
+          
+
 }

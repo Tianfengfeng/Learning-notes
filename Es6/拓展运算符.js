@@ -62,3 +62,6 @@ const [first, ...middle, last] = [1, 2, 3, 4, 5];
 
 [...'hello']
 // [ "h", "e", "l", "l", "o" ]
+
+
+//  toString()无法转换null和undefined       String()和toString()都是将其他类型的变量转换为字符串类型。
