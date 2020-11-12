@@ -42,7 +42,7 @@ class myType2{
             age=18
         }
 
-    }
+        }
     myArr(){
         let arr1 : Array<number>=[1,2,1,2,1,3,1,2,3,4,6,4,6,4,5,6] 
         let newarr:number[]=arr1.reduce((pre,cur,index,arr1)=>{  
@@ -69,6 +69,13 @@ class myType2{
     }
 
     myof(){
+
+        // symbol 是js第七种原始数据类型  symbol由symbol函数获取，而不是new关键字，所以它是个值，不是对象。
+        // let s1=symbol('foo')
+        // let s2=symbol('bar')
+        // symbol 函数可以接受一个字符串参数 表示对symbol实例的描述，用作区分。 Symbol函数的参数只是表示对当前 Symbol 值的描述，因此相同参数的Symbol函数的返回值是不相等的
+
+
         // for in 遍历对象的副作用 原型链上所有属性都会被访问到   使用obj.hasOwnProperty(ker)===true   来区分  会避免原型对象扩展带来的干扰
         //for...of 可以迭代数组、类数组以及任何可以迭代的对象(maps、sets、DOM集合)
         const products :Array<string> = ['oranges', 'apples'];
@@ -85,10 +92,24 @@ class myType2{
         ];
          //   那么问题来了  还没有学到接口概念时  改怎么定义一个对象数组
            
-          for (const { name } of persons) {
-            console.log(name);
-            // 'John Smith'    'Jane Doe'
-          }
+        for (const { name } of persons) {
+        console.log(name);
+        // 'John Smith'    'Jane Doe'
+        }
+        
+        
+        //  let {keys, values, entries} = Object;
+
+        let obj = { a: 1, b: 2, c: 3 };
+        for (let key of Object.keys(obj)) { 
+            console.log(key); // 'a', 'b', 'c'
+        }
+        // for (let value of Object.values(obj)) {
+        //     console.log(value); // 1, 2, 3
+        // }
+        // for (let [key, value] of Object.entries(obj)) {
+        //     console.log([key, value]); // ['a', 1], ['b', 2], ['c', 3]
+        // }
         
         // 迭代类数组
         
@@ -160,13 +181,13 @@ class myType2{
           
           // 或者
           
-          func(val: string | number): number {
+        func(val: string | number): number {
             if ((val as string).length) {
-              return (val as string).length
+                return (val as string).length
             } else {
-              return val.toString().length
+                return val.toString().length
             }
-          }   
+        }   
         //  参数val 是一个联合类型   函数要返回参数的长度，而lenght是字符串的属性  数值没有此属性，需用 toStriing 转 再获取。
         // 但在编译阶段 访问联合类型值 的属性时，这个属性必须是所有可能类型的共有属性，因此编译不通过，要使用类型断言，
         // 类型断言不是类型转换  而是类型选择。
@@ -182,27 +203,41 @@ class myType2{
            // 当声明变量 没有给出类型 ts编译器利用类型推断设置类型
         
 
-
-
-
-
-
-
-           Scope(){
+        Scope(){
             var global_num = 12          // 全局变量    
             class Numbers {              // 类在这
-               num_val = 13;             // 实例变量
-               static sval = 10;         // 静态变量
-               
-               storeNum():void { 
-                  var local_num = 14;    // 局部变量
-               } 
+                num_val = 13;             // 实例变量
+                static sval = 10;         // 静态变量
+                
+                storeNum():void { 
+                    var local_num = 14;    // 局部变量
+                } 
             } 
             console.log("全局变量为: "+global_num)  
             console.log(Numbers.sval)   // 静态变量
             var obj = new Numbers(); 
             console.log("实例变量: "+obj.num_val)  
-           }
-          
+        }
 
 }
+
+// 接口 
+//   作用：1.对对象的形状进行约束和描述。2.对类的部分行为进行抽象（类实现接口）
+//实现（implements）是面向对象中的一个重要概念。一个类只能继承自另一个类，不同类之间可以有一些共有的特性，就可以把特性提取成接口（interfaces），用 implements 关键字来实现。
+
+interface Person {
+    name:string;
+    age:number;
+    readonly id:number;  // 只读属性   只能是变量对象初始化时赋值   而不能再次给只读属性赋值
+    like?:string;   //可选属性    //此时仅有了可选属性  变量仍不能添加未定义的属性
+    [proName : string]:string | number | boolean;    // 任意属性，一旦定义了任意属性那么确定属性和可选属性的类型必须是它任意属性 类型的子集
+    //[proName : string]:any;    // 一个接口只能定义一个任意类型
+    //   在3.9.3中，如果同时存在任意属性、可选属性，那么任意属性的数据类型要带undefined    或者任意属性类型为any
+}
+let zhangsan : Person = {         // 变量ZH   的类型是Person  定义的此变量不能比接口person多属性或少属性（可选属性除外）。 赋值的时候变量的形状必须和接口保持一致。
+    name:'zhangsan',
+    age:18,
+    id:89757,
+    adress:'xa',
+}
+

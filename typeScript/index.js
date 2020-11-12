@@ -1,8 +1,8 @@
 //  typescript  基础类型学习
-var myType = /** @class */ (function () {
-    function myType() {
+var myType2 = /** @class */ (function () {
+    function myType2() {
     }
-    myType.prototype["enum"] = function () {
+    myType2.prototype["enum"] = function () {
         //1. 用于定义数值集合  可以定义一些带名字的常量   
         //2. 枚举类型的值是数值类型 因此又被称为数字类型枚举
         // 3. 成员的值可以不用初始化 ，因为他们有自增行为
@@ -42,7 +42,7 @@ var myType = /** @class */ (function () {
             person4[person4["age"] = 18] = "age";
         })(person4 || (person4 = {}));
     };
-    myType.prototype.myArr = function () {
+    myType2.prototype.myArr = function () {
         var arr1 = [1, 2, 1, 2, 1, 3, 1, 2, 3, 4, 6, 4, 6, 4, 5, 6];
         var newarr = arr1.reduce(function (pre, cur, index, arr1) {
             pre.indexOf(cur) === -1 && pre.push(cur);
@@ -63,7 +63,11 @@ var myType = /** @class */ (function () {
         }, arr1);
         // 匿名函数中this指向默认为window，可通过传第二参数来更改之
     };
-    myType.prototype.myof = function () {
+    myType2.prototype.myof = function () {
+        // symbol 是js第七种原始数据类型  symbol由symbol函数获取，而不是new关键字，所以它是个值，不是对象。
+        // let s1=symbol('foo')
+        // let s2=symbol('bar')
+        // symbol 函数可以接受一个字符串参数 表示对symbol实例的描述，用作区分。 Symbol函数的参数只是表示对当前 Symbol 值的描述，因此相同参数的Symbol函数的返回值是不相等的
         // for in 遍历对象的副作用 原型链上所有属性都会被访问到   使用obj.hasOwnProperty(ker)===true   来区分  会避免原型对象扩展带来的干扰
         //for...of 可以迭代数组、类数组以及任何可以迭代的对象(maps、sets、DOM集合)
         var products = ['oranges', 'apples'];
@@ -84,6 +88,18 @@ var myType = /** @class */ (function () {
             console.log(name_1);
             // 'John Smith'    'Jane Doe'
         }
+        //  let {keys, values, entries} = Object;
+        var obj = { a: 1, b: 2, c: 3 };
+        for (var _b = 0, _c = Object.keys(obj); _b < _c.length; _b++) {
+            var key = _c[_b];
+            console.log(key); // 'a', 'b', 'c'
+        }
+        // for (let value of Object.values(obj)) {
+        //     console.log(value); // 1, 2, 3
+        // }
+        // for (let [key, value] of Object.entries(obj)) {
+        //     console.log([key, value]); // ['a', 1], ['b', 2], ['c', 3]
+        // }
         // 迭代类数组
         // function sum() {
         //     let sum = 0;
@@ -131,7 +147,7 @@ var myType = /** @class */ (function () {
     // 类型断言    
     //使用方式 <类型>值   或者    值 as 类型
     // 简单说就是先做一个假设 使编译通过
-    myType.prototype.funa = function (val) {
+    myType2.prototype.funa = function (val) {
         if (val.length) {
             return val.length;
         }
@@ -140,7 +156,7 @@ var myType = /** @class */ (function () {
         }
     };
     // 或者
-    myType.prototype.func = function (val) {
+    myType2.prototype.func = function (val) {
         if (val.length) {
             return val.length;
         }
@@ -157,7 +173,7 @@ var myType = /** @class */ (function () {
      num = "12";    // 编译错误 当我们再次为变量设置字符串类型的值时，这时编译会错误。因为变量已经设置为了 number 类型。
      console.log(num);*/
     // 当声明变量 没有给出类型 ts编译器利用类型推断设置类型
-    myType.prototype.Scope = function () {
+    myType2.prototype.Scope = function () {
         var global_num = 12; // 全局变量    
         var Numbers = /** @class */ (function () {
             function Numbers() {
@@ -174,5 +190,11 @@ var myType = /** @class */ (function () {
         var obj = new Numbers();
         console.log("实例变量: " + obj.num_val);
     };
-    return myType;
+    return myType2;
 }());
+var zhangsan = {
+    name: 'zhangsan',
+    age: 18,
+    id: 89757,
+    adress: 'xa'
+};
