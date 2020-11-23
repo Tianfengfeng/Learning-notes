@@ -193,14 +193,18 @@ class myType2{
         // 类型断言不是类型转换  而是类型选择。
 
 
-        // 类型推断  
+        // 类型推论  
 
                /* var num = 2;    // 类型推断为 number 声明了变量 num 并=设置初始值为 2。 注意变量声明没有指定类型。因此，程序使用类型推断来确定变量的数据类型，第一次赋值为 2，num 设置为 number 类型。
                 console.log("num 变量的值为 "+num); 
                 num = "12";    // 编译错误 当我们再次为变量设置字符串类型的值时，这时编译会错误。因为变量已经设置为了 number 类型。
                 console.log(num);*/
                 
-           // 当声明变量 没有给出类型 ts编译器利用类型推断设置类型
+           // 当声明变量 没有给出类型 ts编译器利用类型推论设置类型
+
+
+           //   let mynum    
+           //   若定义时没有赋值  不管之后有没有赋值   都会被类型推论成any
         
 
         Scope(){
@@ -219,13 +223,55 @@ class myType2{
             console.log("实例变量: "+obj.num_val)  
         }
 
+        myArray(){
+            let arr1 :number[]=[1,2,3] //数组      //  arr1.push('s') // error   数组api的参数会在定义数组类型时被限制
+
+            let arr2:Array<string>=['a','b','c']    //  数组泛型
+
+            let arr3:[string,number]=['d',5]     //元组
+
+            let arr4:any[]=[]
+        }
+
+        Func(){
+            // ts中函数的输出输入都要类型限制  调用时多参少参都不允许 
+            let sum=function (x:number,y:number) :number{
+                return x + y
+            }
+
+            // 上例只对右侧进行了定义   左侧是匿名函数赋值类型推论得出
+            
+            let sum1:(x:number,y:number)=>number=function(x:number,y:number){
+                return x+y
+
+                // ts中 =>  并非箭头函数，而表示函数定义，左侧是输入类型 右侧是输出类型。
+            }
+
+            //  用接口实现函数
+            interface Isearch{
+                (str:string,str2:string):boolean;
+            }
+            let mysearch:Isearch;
+
+            mysearch=function(str:string,str2:string,str3?:string){
+                return str.search(str2)===-1
+            }
+            //   可选参数必须跟在必选参数之后，且可选参数之后不能再有必需参数。
+
+            mysearch=function(str:string='test',str2:string){
+                return  str==='test'
+                // 参数默认值    ts会将添加了默认值的参数 识别为可选参数   此时就没有必须跟在必选参数之后的限制了 
+            }
+
+        }
+
 }
 
-// 接口 
-//   作用：1.对对象的形状进行约束和描述。2.对类的部分行为进行抽象（类实现接口）
-//实现（implements）是面向对象中的一个重要概念。一个类只能继承自另一个类，不同类之间可以有一些共有的特性，就可以把特性提取成接口（interfaces），用 implements 关键字来实现。
+/**     接口 
+    作用：1.对对象的形状进行约束和描述。2.对类的部分行为进行抽象（类实现接口）
+    实现（implements）是面向对象中的一个重要概念。一个类只能继承自另一个类，不同类之间可以有一些共有的特性，就可以把特性提取成接口（interfaces），用 implements 关键字来实现。*/ 
 
-interface Person {
+interface IPerson {
     name:string;
     age:number;
     readonly id:number;  // 只读属性   只能是变量对象初始化时赋值   而不能再次给只读属性赋值
@@ -234,7 +280,7 @@ interface Person {
     //[proName : string]:any;    // 一个接口只能定义一个任意类型
     //   在3.9.3中，如果同时存在任意属性、可选属性，那么任意属性的数据类型要带undefined    或者任意属性类型为any
 }
-let zhangsan : Person = {         // 变量ZH   的类型是Person  定义的此变量不能比接口person多属性或少属性（可选属性除外）。 赋值的时候变量的形状必须和接口保持一致。
+let zhangsan : IPerson = {         // 变量ZH   的类型是Person  定义的此变量不能比接口person多属性或少属性（可选属性除外）。 赋值的时候变量的形状必须和接口保持一致。
     name:'zhangsan',
     age:18,
     id:89757,

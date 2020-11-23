@@ -1,4 +1,4 @@
-export function compress(img,Orientation) {
+function compress(img,Orientation) {
     let canvas = document.createElement("canvas");
     let ctx = canvas.getContext('2d');
     //瓦片canvas
@@ -71,7 +71,7 @@ export function compress(img,Orientation) {
 }
 
 
-export async function postImg (ndata) {
+async function postImg (ndata) {
     // let param = new FormData(); //创建form对象
     console.log('压缩后的')
     console.log(ndata)
